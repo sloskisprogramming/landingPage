@@ -1,2 +1,536 @@
-test 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Sara Loski</title>
 
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="/assets/css/screen.css?2c152ab4040239b9e759035ebd576037746cfaf0" type="text/css" rel="stylesheet"/>
+<link href="/assets/css/fonts.css?2c152ab4040239b9e759035ebd576037746cfaf0" type="text/css" rel="stylesheet"/>
+
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+  <script type="text/javascript">
+  	LatexIT.add('p', true);
+  </script>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a id="homeBut" class="navbar-brand" href="#">SARA LOSKI</a>
+    </div>
+  	<div>
+      <ul class="nav navbar-nav">
+		<!--THIS IS WHERE WE HAD THE HEADING BUTTONS GO-->
+		<li id="contactBut"><a class="inactive" href="#">CONTACT ME</a></li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div id="content" class="container-fluid">
+ <div id="financePage" class="show">
+   <h1>Black-Scholes Pricing Calculator</h1>
+        <table id="wrapperTable">
+        <td class="tdstyle">
+	        <table id="bsInTab" class="table">
+    	        <thead>
+        	        <tr>
+            	        <th>Variable</th>
+               	 	    <th>User Input</th>
+                	</tr>
+	            </thead>
+   				<tbody>
+                	<tr>
+                    	<td><p>Stock Price at time t, $S$</p></td><td><TextArea id="S">Insert</TextArea></td>
+	                </tr>
+    	            <tr>
+        	            <td><p>Strike Price, $K$</p></td><td><TextArea id="K">Insert</TextArea></td>
+            	    </tr>
+                	<tr>
+	                    <td><p>Days to Maturity (as days, not $\tau$)</p></td><td><TextArea id="Days">Insert</TextArea></td>
+    	            </tr>
+        	        <tr>
+            	        <td>Continuously Compounded</td><td><TextArea id="R">0</TextArea></td>
+                	</td>
+ 	               <tr>
+    	                <td>Simple rate</td><td><TextArea id="RS">0</TextArea></td>
+        	        </tr>
+            	    <tr>
+                	    <td>Discount rate</td><td><TextArea id="RD">0</TextArea></td>
+  	              	</tr>
+    	            <tr>
+        	            <td><p>Standard Deviation, $\sigma$</p></td><td><TextArea id="sigma">Insert</TextArea></td>
+            	    </tr>
+            	</tbody>
+        	</table>
+   		</td>
+    
+    <td class="tdstyle">
+    	<div id="formulas" class="jumbotron">
+    		<div id="thisFormula">
+    		</div>
+    		<div id="thisAnswer">
+    		</div>
+    	</div>
+    </td>
+    
+    <td class="tdstyle">
+    <table id="secondTab" class = "table" >	
+    	<thead>
+        	<tr>
+            	<th>Calculate</th>
+            </tr>
+	    </thead>
+    	<tbody>
+    	    <tr>
+    	    	<td><button id="step1"><p>Calculate $\tau$</p></button></td>
+    	    </tr>
+    	    <tr>
+    	    	<td><button id="step2"><p>Calculate B</p></button></td>
+    	    </tr>
+    	    <tr>
+    	    	<td><button id="step3"><p>Calculate $d_1$ & $d_2$</p></button></td>
+    	    </tr>
+    	    <tr>
+    	    	<td><button id="step4"><p>Calculate $N(d_1)$ & $N(d_2)$</p></button></td>
+    	    </tr>
+    	    <tr>
+    	    	<td><button id="step5"><p>Calculate Call Price and Put Price</p></button></td>
+    	    </tr>
+    	</tbody>
+    
+			
+
+	</table>
+	</td>
+	</table>
+	</div>
+	
+    <div id="contactPage" class="noshow">
+            <h1>Contact Sara</h1>
+            <table class="contactFunctions" >
+                <tr>
+                    <td class="contactBox">
+                        <img src="res/email.jpeg" class="contactimg">
+                        <p class="contactText1">EMAIL</p>
+                        <p class="contactText2">sara.loski@gmail.com</p>
+                    <td>
+                    <td class="contactBox">
+                        <img src="res/phone.jpeg" class="contactimg">
+                        <p class="contactText1">PHONE</p>
+                        <p class="contactText2">(778) 887 8551</p>
+                    </td>
+                </tr>
+            </table>
+    </div>
+
+</div>
+<!--
+<p> \[\ \tau = \frac{Days}{365} \] </p>
+			<p>$Calculate$ $B:$<br> If continuously compounded rate: $ B = e^{-r\cdot \tau} $ 
+				<br> If simple rate: $B = \frac{1}{1 + (r \cdot \tau)}$
+				<br> If discount rate: $B = 1 - \frac{r\cdot Days}{360} $ </p>
+			<p>\[\ d_1 &= \frac{\ln(\frac{S}{KB}) + \frac{1}{2}\sigma^2}{\sigma\sqrt\tau}\]</p>
+			<p>\[\ d_2 &= d_1 - \sigma\sqrt\tau \] </p>
+			<p>\[\ Call Price = S\cdot N(d_1) - K\cdot B\cdot N(d_2)\]</p>
+			<p>\[\ Put Price = -S\cdot [1-N(d_1)] + K\cdot B\cdot [1-N(d_2)]\]</p>
+-->
+<script>
+    $("#homeBut").click(function(){
+        $("#contactBut").attr('class', 'inactive');
+        $("#financePage").attr('class', 'show');
+        $("#contactPage").attr('class', 'noshow');
+    });
+
+    $("#contactBut").click(function(){
+        $("#contactBut").attr('class', 'active');
+        $("#financePage").attr('class', 'noshow');
+        $("#contactPage").attr('class', 'show');
+    });
+    $("#step1").click(function(){
+    var Days = $("#Days").val();
+    
+    var Tau = Days/365;
+    $("#thisFormula").empty();
+    $("#thisAnswer").empty();
+    $("#thisFormula").append("<img src='res/tau.png'>");  
+    $("#thisAnswer").text(Tau); 
+    
+    });
+    
+    $("#step2").click(function(){
+    var S = $("#S").val();
+  
+    var K = $("#K").val();
+
+    var Days = $("#Days").val();
+ 
+    var R = $("#R").val();
+    
+    var RS = $("#RS").val();
+    
+    var RD = $("#RD").val();
+
+    var sigma = $("#sigma").val();
+
+	var Tau = Days/365;
+	
+    var B1 = (Math.exp((-1)*R*Tau)); 
+    
+    var B2 = (1/(1+(RS*Tau))); 
+ 
+    
+    var B3 = (1-(RD*Days/360));
+    
+    var B = (B1+B2+B3)-2;
+    
+    var B = B.toFixed(4);
+    
+    $("#thisFormula").empty();
+    $("#thisAnswer").empty();
+    $("#thisFormula").append("<img src='res/b.png'>");  
+    $("#thisAnswer").text(B); 
+    
+    });
+     
+    $("#step3").click(function(){
+    var S = $("#S").val();
+  
+    var K = $("#K").val();
+
+    var Days = $("#Days").val();
+ 
+    var R = $("#R").val();
+    
+    var RS = $("#RS").val();
+    
+    var RD = $("#RD").val();
+
+    var sigma = $("#sigma").val();
+
+	var Tau = Days/365;
+	
+    var B1 = (Math.exp((-1)*R*Tau)); 
+    
+    var B2 = (1/(1+(RS*Tau))); 
+ 
+    
+    var B3 = (1-(RD*Days/360));
+    
+    var B = (B1+B2+B3)-2;
+    
+    var B = B.toFixed(4);
+    
+    
+    var term1 = (Math.log( S / (K*B)));
+
+    var term2 = ((1/2)*sigma*sigma*Tau);
+    
+    var term3 = (1/(sigma*Math.sqrt(Tau)));
+
+	//Calculate d1.. Long form
+    var d1long = (term1+term2)*term3;
+   
+	//Calculate d1.. Short form
+    var d1 = Math.round(d1long*100)/100;
+    
+    //Calculate d2.. Long form
+    var d2long = (d1long - (sigma*Math.sqrt(Tau)));
+	//Calculate d2.. Short form
+    var d2 = (d2long).toFixed(4);
+    
+    $("#thisFormula").empty();
+    $("#thisAnswer").empty();
+    $("#thisFormula").append("<img src='res/d1.png'>");  
+    $("#thisAnswer").text("d1: " + d1 + " &     d2: " + d2); 
+    
+    });
+    
+    $("#step4").click(function(){
+    var S = $("#S").val();
+  
+    var K = $("#K").val();
+
+    var Days = $("#Days").val();
+ 
+    var R = $("#R").val();
+    
+    var RS = $("#RS").val();
+    
+    var RD = $("#RD").val();
+
+    var sigma = $("#sigma").val();
+
+	var Tau = Days/365;
+	
+    var B1 = (Math.exp((-1)*R*Tau)); 
+    
+    var B2 = (1/(1+(RS*Tau))); 
+        
+    var B3 = (1-(RD*Days/360));
+    
+    var B = (B1+B2+B3)-2;
+    
+    var B = B.toFixed(4);
+ 
+  	 
+    var term1 = (Math.log( S / (K*B)));
+
+
+    var term2 = ((1/2)*sigma*sigma*Tau);
+
+
+    var term3 = (1/(sigma*Math.sqrt(Tau)));
+
+
+	//Calculate d1.. Long form
+    var d1long = (term1+term2)*term3;
+
+	//Calculate d1.. Short form
+    var d1 = Math.round(d1long*100)/100;
+
+	//Calculate d2.. Long form
+    var d2long = (d1long - (sigma*Math.sqrt(Tau)));
+	//Calculate d2.. Short form
+    var d2 = (d2long).toFixed(4);
+
+
+	//Make d1 into only 2 decimals to use later
+	
+	var d1Short = null;
+	if (d1 < 0){
+        d1Short = (Math.ceil(d1*100))/100;
+    }
+    if (d1 >= 0){
+        d1Short = (Math.floor(d1*100))/100;
+    }
+
+
+	//Calculate the trunc to use at the very end	
+    var d1Trunc = (((Math.abs(d1)) - Math.abs(d1Short))*100);
+    d1Trunc = (d1Trunc).toFixed(2);
+
+    
+    //Find the increment to use in final calculation 
+    var d1Inc = null;
+    if (d1Short < 0){
+        d1Inc = d1Short - 0.01;
+    }
+    if (d1Short >= 0){
+        d1Inc = d1Short + 0.01;
+    }
+
+    
+	//
+	var d2Short = null;
+	if (d2 < 0){
+        d2Short = (Math.ceil(d2*100))/100;
+    }
+    if (d2 >= 0){
+        d2Short = (Math.floor(d2*100))/100;
+    }
+
+
+    
+    
+    
+    var d2Trunc = (((Math.abs(d2)) - Math.abs(d2Short))*100);
+    d2Trunc = (d2Trunc).toFixed(2);
+
+    
+    var d2Inc = null;
+    if (d2 < 0){
+        d2Inc = d2 - 0.01;
+    }
+    if (d2 >= 0){
+        d2Inc = d2 + 0.01;
+    }
+    var normd1 = getZScore(d1);
+ 
+    var normd1Inc = getZScore(d1Inc);
+
+    var normd2 = getZScore(d2);
+
+    var normd2Inc = getZScore(d2Inc);
+
+    
+    var nd1 = ((1-d1Trunc)*(normd1) + (d1Trunc*normd1Inc)).toFixed(4);
+
+    //var nd1 = (normZd1 - d1Trunc*(Math.abs(normZd1-normZd1Plus))).toFixed(4);
+    var nd2 = ((1-d2Trunc)*(normd2) + (d2Trunc*normd2Inc)).toFixed(4);
+
+	$("#thisFormula").empty();
+    $("#thisAnswer").empty();
+    $("#thisFormula").append("<img src='res/nd1nd2.png'>");  
+    $("#thisAnswer").text("N(d1): " + nd1 + " & N(d2): " + nd2); 
+
+    
+    });
+    
+	$("#step5").click(function(){
+    var S = $("#S").val();
+  
+    var K = $("#K").val();
+
+    var Days = $("#Days").val();
+ 
+    var R = $("#R").val();
+    
+    var RS = $("#RS").val();
+    
+    var RD = $("#RD").val();
+
+    var sigma = $("#sigma").val();
+
+	var Tau = Days/365;
+	
+    var B1 = (Math.exp((-1)*R*Tau)); 
+    
+    var B2 = (1/(1+(RS*Tau))); 
+        
+    var B3 = (1-(RD*Days/360));
+    
+    var B = (B1+B2+B3)-2;
+    
+    var B = B.toFixed(4);
+ 
+  	 
+    var term1 = (Math.log( S / (K*B)));
+
+
+    var term2 = ((1/2)*sigma*sigma*Tau);
+
+
+    var term3 = (1/(sigma*Math.sqrt(Tau)));
+
+
+	//Calculate d1.. Long form
+    var d1long = (term1+term2)*term3;
+
+	//Calculate d1.. Short form
+    var d1 = Math.round(d1long*100)/100;
+
+	//Calculate d2.. Long form
+    var d2long = (d1long - (sigma*Math.sqrt(Tau)));
+	//Calculate d2.. Short form
+    var d2 = (d2long).toFixed(4);
+
+
+	//Make d1 into only 2 decimals to use later
+	
+	var d1Short = null;
+	if (d1 < 0){
+        d1Short = (Math.ceil(d1*100))/100;
+    }
+    if (d1 >= 0){
+        d1Short = (Math.floor(d1*100))/100;
+    }
+
+
+	//Calculate the trunc to use at the very end	
+    var d1Trunc = (((Math.abs(d1)) - Math.abs(d1Short))*100);
+    d1Trunc = (d1Trunc).toFixed(2);
+
+    
+    //Find the increment to use in final calculation 
+    var d1Inc = null;
+    if (d1Short < 0){
+        d1Inc = d1Short - 0.01;
+    }
+    if (d1Short >= 0){
+        d1Inc = d1Short + 0.01;
+    }
+
+    
+	//
+	var d2Short = null;
+	if (d2 < 0){
+        d2Short = (Math.ceil(d2*100))/100;
+    }
+    if (d2 >= 0){
+        d2Short = (Math.floor(d2*100))/100;
+    }
+
+
+    
+    
+    
+    var d2Trunc = (((Math.abs(d2)) - Math.abs(d2Short))*100);
+    d2Trunc = (d2Trunc).toFixed(2);
+
+    
+    var d2Inc = null;
+    if (d2 < 0){
+        d2Inc = d2 - 0.01;
+    }
+    if (d2 >= 0){
+        d2Inc = d2 + 0.01;
+    }
+    var normd1 = getZScore(d1);
+ 
+    var normd1Inc = getZScore(d1Inc);
+
+    var normd2 = getZScore(d2);
+
+    var normd2Inc = getZScore(d2Inc);
+
+    
+    var nd1 = ((1-d1Trunc)*(normd1) + (d1Trunc*normd1Inc)).toFixed(4);
+
+    //var nd1 = (normZd1 - d1Trunc*(Math.abs(normZd1-normZd1Plus))).toFixed(4);
+    var nd2 = ((1-d2Trunc)*(normd2) + (d2Trunc*normd2Inc)).toFixed(4);
+
+
+    var callPrice = (S * nd1) - (K * B * nd2);
+    callPrice = Math.round(callPrice*100)/100;
+    var putPrice = ((-1) * S) * (1 - nd1) + (K * B) * (1 - nd2);
+    putPrice = Math.round(putPrice*100)/100;
+	
+	
+	$("#thisFormula").empty();
+    $("#thisAnswer").empty();
+    $("#thisFormula").append("<img src='res/callPricePic.png'>");  
+    $("#thisAnswer").text("Call Price: $" + callPrice + " & Put Price: $" + putPrice); 
+    
+
+});
+
+function getZScore(z){
+    //z == number of standard deviations from the mean
+
+    //if z is greater than 6.5 standard deviations from the mean
+    //the number of significant digits will be outside of a reasonable 
+    //range
+    if ( z < -6.5)
+      return 0;
+    if( z > 6.5) 
+      return 1;
+
+    var factK = 1;
+    var sum = 0;
+    var term = 1;
+    var k = 0;
+    var loopStop = Math.exp(-23);
+    while(Math.abs(term) > loopStop) 
+    {
+      term = .3989422804 * Math.pow(-1,k) * Math.pow(z,k) / (2 * k + 1) / Math.pow(2,k) * Math.pow(z,k+1) / factK;
+      sum += term;
+      k++;
+      factK *= k;
+
+    }
+    sum += 0.5;
+
+    return sum.toFixed(4);
+  }
+</script>
+</body>
+</html>
